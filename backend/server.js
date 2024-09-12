@@ -14,41 +14,44 @@ const { sequelize, connectDB } = require('./config/db');
 const ExpressBrute = require('express-brute');
 const authRoutes = require('./routes/authRoutes');
 
-// Load environment variables
+//load environment variables from .env
 dotenv.config();
 
-// Connect to the database
+//connect to the db
 connectDB();
-sequelize.sync(); // Sync models to create tables in the database
+
+//sync models to create tables in the db
+sequelize.sync(); 
 
 const app = express();
 
 app.set('trust proxy', 1);
 
-// Use cookie-parser 
+//use cookie-parser 
 app.use(cookieParser()); 
 
-// Implement secure HTTP headers
+//implement secure HTTP headers
 app.use(helmet());
 
-// Enable CORS with appropriate configuration
+//configure cors with allowed origin
 const corsOptions = {
-  origin: 'https://localhost:3000', // Frontend URL
+  //frontend react app url
+  origin: 'https://localhost:3000',
   credentials: true,
 };
 app.use(cors(corsOptions));
 
-// Prevent XSS attacks
+//prevent cross site scripting attacks (xss)
 app.use(xss());
 
-// Rate limiting
+//rate limiting
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000,
   max: 100,
 });
 app.use(limiter);
 
-// Session management
+//session management
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -60,20 +63,23 @@ app.use(session({
   },
 }));
 
-// CSRF protection
+//csrf protection
 const csrfProtection = csrf({ cookie: true });
 app.use(csrfProtection);
 
-// Brute-force protection 
+//brute-force protection 
 const store = new ExpressBrute.MemoryStore();
 const bruteForce = new ExpressBrute(store);
 
+//json limit
 app.use(express.json({ limit: '5000kb' }));
 
+//auth routes
 app.use('/api/auth', bruteForce.prevent, authRoutes);
 
+//csrf token route
 app.get('/api/csrf-token', (req, res) => {
-  res.cookie('XSRF-TOKEN', req.csrfToken()); // Set CSRF token in a cookie
+  res.cookie('XSRF-TOKEN', req.csrfToken());
   res.json({ csrfToken: req.csrfToken() });
 });
 
@@ -85,13 +91,12 @@ app.use(express.static(path.join(__dirname, 'public'), {
   }
 }));
 
-
-// Payment route
+//payment routes
 app.use('/api/payments', require('./routes/paymentRoutes'));
 
 const PORT = process.env.PORT || 443;
 
-// Configure HTTPS (SSL)
+//configure HTTPS (SSL) by creating a secure server using cert and key
 if (process.env.NODE_ENV === 'development') {
   const options = {
     key: fs.readFileSync(path.resolve(__dirname, 'certs', 'localhost+2-key.pem')),

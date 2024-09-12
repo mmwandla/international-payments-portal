@@ -1,14 +1,15 @@
 const { check, validationResult } = require('express-validator');
 
-// Regular expression patterns for whitelisting
-const fullNamePattern = /^[a-zA-Z\s]+$/; // Only letters and spaces allowed
-const idNumberPattern = /^\d{13}$/; // Only 13 digits allowed
-const accountNumberPattern = /^\d{6,}$/; // Only digits, minimum 6 digits
-const passwordPattern = /^[a-zA-Z0-9!@#$%^&*]+$/; // Letters, digits, and certain special characters
-const currencyPattern = /^[A-Z]{3}$/; // 3 uppercase letters, e.g., USD, EUR
-const providerPattern = /^[a-zA-Z\s]+$/; // Only letters and spaces allowed
-const swiftCodePattern = /^[A-Za-z0-9]{8,11}$/; // 8 to 11 alphanumeric characters
+//regex (regular expression) for input whitelisting
+const fullNamePattern = /^[a-zA-Z\s]+$/; //only letters and spaces allowed
+const idNumberPattern = /^\d{13}$/; //only 13 digits allowed
+const accountNumberPattern = /^\d{6,}$/; //only digits, minimum 6 digits
+const passwordPattern = /^[a-zA-Z0-9!@#$%^&*]+$/; //letters, digits, and certain special characters
+const currencyPattern = /^[A-Z]{3}$/; //3 uppercase letters for currency, e.g., ZAR, USD, EUR
+const providerPattern = /^[a-zA-Z\s]+$/; //only letters and spaces allowed
+const swiftCodePattern = /^[A-Za-z0-9]{8,11}$/; //8 to 11 alphanumeric characters
 
+//validate register inputs
 const validateRegister = [
   check('fullName')
     .not()
@@ -46,6 +47,7 @@ const validateRegister = [
   },
 ];
 
+//validate login inputs
 const validateLogin = [
   check('accountNumber')
     .not()
@@ -69,6 +71,7 @@ const validateLogin = [
   },
 ];
 
+//validate payment inputs
 const validatePayment = [
   check('amount')
     .not()

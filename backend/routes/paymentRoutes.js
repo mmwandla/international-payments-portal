@@ -5,10 +5,10 @@ const { validatePayment } = require('../middleware/validateInput');
 
 const router = express.Router();
 
-// Create Payment
+//create payment route
 router.post('/create', auth, validatePayment, createPayment);
 
-// List Payments
+//get list of past payments route
 router.get('/list', auth, getPayments);
 
 module.exports = router;

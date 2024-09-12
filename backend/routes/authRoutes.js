@@ -4,10 +4,10 @@ const { validateRegister, validateLogin } = require('../middleware/validateInput
 
 const router = express.Router();
 
-// Registration Route
+//register Route
 router.post('/register', validateRegister, registerUser);
 
-// Login Route
+//login Route
 router.post('/login', validateLogin, loginUser); 
 
 module.exports = router;

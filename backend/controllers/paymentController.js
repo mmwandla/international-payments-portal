@@ -1,7 +1,6 @@
 const Payment = require('../models/Payment');
 const { validationResult } = require('express-validator');
 
-// Create a new payment
 const createPayment = async (req, res) => {
   const {
     accountNumber,
@@ -13,13 +12,12 @@ const createPayment = async (req, res) => {
   } = req.body;
 
   try {
-    // Validate request body
+    //validate request body
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    // Create payment in MySQL using Sequelize
     const payment = await Payment.create({
       accountNumber: req.user.accountNumber,
       amount,
@@ -27,7 +25,7 @@ const createPayment = async (req, res) => {
       provider,
       recipientAccountNumber,
       swiftCode,
-      status: 'Pending', // Default status
+      status: 'Pending', 
     });
 
     res.status(201).json(payment);
@@ -37,10 +35,8 @@ const createPayment = async (req, res) => {
   }
 };
 
-// Get all payments for the authenticated user
 const getPayments = async (req, res) => {
   try {
-    // Fetch payments using Sequelize
     const payments = await Payment.findAll({
       where: {
         accountNumber: req.user.accountNumber,

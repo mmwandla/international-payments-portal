@@ -19,20 +19,17 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Fetch CSRF token from the server
       const csrfRes = await axios.get('/api/csrf-token');
       const csrfToken = csrfRes.data.csrfToken;
   
-      // Set up headers including the CSRF token
       const config = {
         headers: {
           'Content-Type': 'application/json',
-          'CSRF-Token': csrfToken,  // Include the CSRF token in headers
+          'CSRF-Token': csrfToken,
         },
       };
       const body = JSON.stringify(formData);
   
-      // Send registration request
       const res = await axios.post('/api/auth/register', body, config);
       localStorage.setItem('token', res.data.token);
       navigate('/payments');

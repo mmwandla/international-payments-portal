@@ -6,7 +6,7 @@ import '../styles/Form.css';
 const Login = () => {
   const [formData, setFormData] = useState({ accountNumber: '', password: '' });
   const [errors, setErrors] = useState([]); 
-  const [csrfToken, setCsrfToken] = useState(''); // Add state for CSRF token
+  const [csrfToken, setCsrfToken] = useState('');
   const navigate = useNavigate();
   const { accountNumber, password } = formData;
 
@@ -14,7 +14,7 @@ const Login = () => {
 
   const fetchCsrfToken = async () => {
     try {
-      const response = await axios.get('/api/csrf-token', { withCredentials: true }); // Ensure cookies are sent
+      const response = await axios.get('/api/csrf-token', { withCredentials: true });
       setCsrfToken(response.data.csrfToken);
     } catch (error) {
       console.error('Error fetching CSRF token:', error);
@@ -25,16 +25,15 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
   
-    // Fetch CSRF token before making the request
     await fetchCsrfToken();
   
     try {
       const config = {
         headers: {
           'Content-Type': 'application/json',
-          'CSRF-Token': csrfToken,  // Include the CSRF token in headers
+          'CSRF-Token': csrfToken,
         },
-        withCredentials: true,  // Ensure cookies are sent with the POST request
+        withCredentials: true,
       };
       const body = JSON.stringify(formData);
   

@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/db'); 
 
-// Verify sequelize instance is properly imported
 console.log('Sequelize instance:', sequelize);
 
 const Payment = sequelize.define('Payment', {

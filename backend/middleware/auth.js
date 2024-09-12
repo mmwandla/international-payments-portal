@@ -4,11 +4,11 @@ const User = require('../models/User');
 const auth = async (req, res, next) => {
   let token;
 
-  // Check for token in cookies
+  //checking for token in cookie
   if (req.cookies && req.cookies.token) {
     token = req.cookies.token;
   }
-  // Check in Authorization header
+  //checking for token in authorization header
   else if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
@@ -21,15 +21,16 @@ const auth = async (req, res, next) => {
   }
 
   try {
+    //verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Use Sequelize to find user by primary key (ID) and account number
+    //find user by id and account number
     req.user = await User.findOne({
       where: {
         id: decoded.id,
         accountNumber: decoded.accountNumber
       },
-      attributes: { exclude: ['password'] } // Exclude the password field
+      attributes: { exclude: ['password'] }
     });
 
     if (!req.user) {
