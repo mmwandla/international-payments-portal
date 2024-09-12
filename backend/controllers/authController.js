@@ -5,7 +5,7 @@ const { validationResult } = require('express-validator');
 
 // Helper function to send token in HTTP-only cookie
 const sendTokenResponse = (user, statusCode, res) => {
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: user.id, accountNumber: user.accountNumber }, process.env.JWT_SECRET, {
     expiresIn: '30d',
   });
 

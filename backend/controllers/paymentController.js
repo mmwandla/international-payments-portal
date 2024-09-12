@@ -19,14 +19,9 @@ const createPayment = async (req, res) => {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    // Ensure the accountNumber in the body matches the authenticated user's accountNumber
-    if (accountNumber !== req.user.accountNumber) {
-      return res.status(403).json({ message: 'Account number mismatch' });
-    }
-
     // Create payment in MySQL using Sequelize
     const payment = await Payment.create({
-      accountNumber,
+      accountNumber: req.user.accountNumber,
       amount,
       currency,
       provider,

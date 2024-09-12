@@ -24,7 +24,7 @@ const Payments = () => {
       if (isAuthenticated) {
         const config = { headers: { Authorization: `Bearer ${token}` } };
         try {
-          const res = await axios.get('/api/payments', config);
+          const res = await axios.get('/api/payments/list', config);
           setPayments(res.data);
         } catch (err) {
           console.error('Error fetching payments:', err);
@@ -126,7 +126,7 @@ const Payments = () => {
       <h2 className="payments-subtitle">Past Payments</h2>
       <ul className="payments-list">
         {payments.map((payment) => (
-          <li key={payment._id} className="payments-list-item">
+          <li key={payment.id} className="payments-list-item">
             {payment.amount} {payment.currency} to {payment.recipientAccountNumber}
           </li>
         ))}
