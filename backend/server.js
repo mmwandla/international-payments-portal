@@ -4,7 +4,6 @@ const helmet = require('helmet');
 const cors = require('cors');
 const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
-const session = require('express-session');
 const csrf = require('csurf');
 const cookieParser = require('cookie-parser');
 const https = require('https');
@@ -33,6 +32,13 @@ app.use(cookieParser());
 //implement secure HTTP headers
 app.use(helmet());
 
+//Strict-Transport-Security header set for HTTPS requests to be used
+app.use(helmet.hsts({
+  maxAge: 31536000, 
+  includeSubDomains: true, 
+  preload: true 
+}));
+
 //configure cors with allowed origin
 const corsOptions = {
   //frontend react app url
@@ -50,18 +56,6 @@ const limiter = rateLimit({
   max: 100,
 });
 app.use(limiter);
-
-//session management
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: true,
-    httpOnly: true,
-    sameSite: 'strict',
-  },
-}));
 
 //csrf protection
 const csrfProtection = csrf({ cookie: true });
