@@ -29,7 +29,7 @@ HTTPS=true
 
 # step 5 assumes that node is now properly installed on your machine, the commands wont work if it isnt. it also assumes your project is properly configured as per the instructions and you are at the root of the project.
 
-6) the browser will say the certificate is invalid due it being self-signed, ignore this and click "advanced" and then "proceed"
+6) the browser will say the certificate is invalid due it being self-signed and you will see this error "Your connection is not private, net::ERR_CERT_AUTHORITY_INVALID", ignore this and click "advanced" and then "proceed"
 
 # dont enter any sensitive information, only mock data for the sake of testing functionality
 
