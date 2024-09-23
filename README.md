@@ -3,8 +3,7 @@
 
 # the certs folder would not be pushed to git and would be in the .gitignore in a production environment, it is included for ease of running the app due to difficulty with having https configured for development, seperated certs will be used for "production"
 
-# prerequisites: IDE for javascript developement (ideally VS Code), MySQL database created (see instructions for further guidance), node installed (goto https://nodejs.org/en and install for your machine), JWT_SECRET generated(use this command in your terminal after installing node--> node -e "console.log(require('crypto').randomBytes(64).toString('hex')); the reult is your JWT_SECRET which youll have in your .env file, see instructions for further guidance"
-
+# prerequisites: IDE for javascript developement (ideally VS Code), MySQL database created (see instructions for further guidance), node installed (goto https://nodejs.org/en and install for your machine), JWT_SECRET generated(use this command in your terminal after installing node--> (node -e "console.log(require('crypto').randomBytes(64).toString('hex'));"), copy and paste everything wihtin the brackets to your terminal, the reult is your JWT_SECRET which youll have in your .env file, see instructions for further guidance on JWT_SECRET and .env file
 
 # instructions to run
 
