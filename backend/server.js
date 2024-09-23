@@ -93,8 +93,8 @@ const PORT = process.env.PORT || 443;
 //configure HTTPS (SSL) by creating a secure server using cert and key
 if (process.env.NODE_ENV === 'development') {
   const options = {
-    key: fs.readFileSync(path.resolve(__dirname, 'certs', 'localhost+2-key.pem')),
-    cert: fs.readFileSync(path.resolve(__dirname, 'certs', 'localhost+2.pem'))
+    key: fs.readFileSync(path.resolve(__dirname, 'certs', 'international-paymen-portal-com-privateKey.key')),
+    cert: fs.readFileSync(path.resolve(__dirname, 'certs', 'international-paymen-portal-com.crt'))
   };
 
   https.createServer(options, app).listen(PORT, () => {
