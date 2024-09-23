@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 import '../styles/Payments.css';
 
 const Payments = () => {
@@ -61,61 +62,24 @@ const Payments = () => {
     <div className="payments-container">
       <h1 className="payments-title">Payments</h1>
       <div className="signout-button-container">
-              <button className="form-button" onClick={handleSignOut}>
-                Sign Out
-              </button>
-            </div>
+        <button className="form-button" onClick={handleSignOut}>Sign Out</button>
+      </div>
       {isAuthenticated ? (
         <>
           <div className="form-container">
             <form onSubmit={onSubmit} className="form-content">
-              <input
-                type="number"
-                placeholder="Amount"
-                name="amount"
-                value={amount}
-                onChange={onChange}
-                className="form-input"
-              />
-              <input
-                type="text"
-                placeholder="Currency"
-                name="currency"
-                value={currency}
-                onChange={onChange}
-                className="form-input"
-              />
-              <input
-                type="text"
-                placeholder="Provider"
-                name="provider"
-                value={provider}
-                onChange={onChange}
-                className="form-input"
-              />
-              <input
-                type="text"
-                placeholder="Recipient Account Number"
-                name="recipientAccountNumber"
-                value={recipientAccountNumber}
-                onChange={onChange}
-                className="form-input"
-              />
-              <input
-                type="text"
-                placeholder="SWIFT Code"
-                name="swiftCode"
-                value={swiftCode}
-                onChange={onChange}
-                className="form-input"
-              />
+              <input type="number" placeholder="Amount" name="amount" value={amount} onChange={onChange} className="form-input" />
+              <input type="text" placeholder="Currency" name="currency" value={currency} onChange={onChange} className="form-input" />
+              <input type="text" placeholder="Provider" name="provider" value={provider} onChange={onChange} className="form-input" />
+              <input type="text" placeholder="Recipient Account Number" name="recipientAccountNumber" value={recipientAccountNumber} onChange={onChange} className="form-input" />
+              <input type="text" placeholder="SWIFT Code" name="swiftCode" value={swiftCode} onChange={onChange} className="form-input" />
               <button type="submit" className="form-button">Make Payment</button>
             </form>
           </div>
           {errors.length > 0 && (
             <div className="error-messages">
               {errors.map((err, index) => (
-                <div key={index} className="error-message">{err.msg}</div>
+                <div key={index} className="error-message" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(err.msg) }} />
               ))}
             </div>
           )}

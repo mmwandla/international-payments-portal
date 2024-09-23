@@ -85,6 +85,12 @@ app.use(express.static(path.join(__dirname, 'public'), {
   }
 }));
 
+//helmet security measures
+app.use(helmet.xssFilter());
+app.use(helmet.referrerPolicy({ policy: 'no-referrer' }));
+app.use(helmet.noSniff());
+app.use(helmet.dnsPrefetchControl({ allow: false })); 
+
 //payment routes
 app.use('/api/payments', require('./routes/paymentRoutes'));
 

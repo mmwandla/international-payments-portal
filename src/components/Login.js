@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 import '../styles/Form.css';
 
 const Login = () => {
@@ -72,7 +73,7 @@ const Login = () => {
       {errors.length > 0 && (
         <div className="error-messages">
           {errors.map((err, index) => (
-            <div key={index} className="error-message">{err.msg}</div>
+            <div key={index} className="error-message" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(err.msg) }} />
           ))}
         </div>
       )}

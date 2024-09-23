@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import DOMPurify from 'dompurify'; 
 import '../styles/Form.css';
 
 const Register = () => {
@@ -46,40 +47,16 @@ const Register = () => {
     <div className="form-container">
       <h1>Register</h1>
       <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          placeholder="Full Name"
-          name="fullName"
-          value={fullName}
-          onChange={onChange}
-        />
-        <input
-          type="text"
-          placeholder="ID Number"
-          name="idNumber"
-          value={idNumber}
-          onChange={onChange}
-        />
-        <input
-          type="text"
-          placeholder="Account Number"
-          name="accountNumber"
-          value={accountNumber}
-          onChange={onChange}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          value={password}
-          onChange={onChange}
-        />
+        <input type="text" placeholder="Full Name" name="fullName" value={fullName} onChange={onChange} />
+        <input type="text" placeholder="ID Number" name="idNumber" value={idNumber} onChange={onChange} />
+        <input type="text" placeholder="Account Number" name="accountNumber" value={accountNumber} onChange={onChange} />
+        <input type="password" placeholder="Password" name="password" value={password} onChange={onChange} />
         <button type="submit" className="submit-button">Register</button>
       </form>
       {errors.length > 0 && (
         <div className="error-messages">
           {errors.map((err, index) => (
-            <div key={index} className="error-message">{err.msg}</div>
+            <div key={index} className="error-message" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(err.msg) }} />
           ))}
         </div>
       )}
