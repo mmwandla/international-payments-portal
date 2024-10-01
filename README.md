@@ -25,7 +25,7 @@ HTTPS=true
 4) create a .env file in customer-portal directory, add the following in the file:
 HTTPS=true
 
-5) open a terminal and use the following commands to run the backend server and the frontend, 1) navigate to backend using this command, copy the contents within the brackets and not the brackets themself (cd customer-portal\backend), and then use the command within the brackets to start the backend server (npm start). 2) open another terminal and use the following command to navigate to the frontend (cd customer-portal), and then use the command (npm start). your frontend will open in your default or open browser.
+5) open a terminal and use the following commands to run the backend server and the frontend, 1) navigate to backend using this command, copy the contents within the brackets and not the brackets themself (cd customer-portal\backend), and then use the command within the brackets to start the backend server (npm start). 2) open another terminal and use the following command to navigate to the frontend (cd customer-portal), and then use the command (npm install) followed by the command (npm start). your frontend will open in your default or open browser.
 
 # step 5 assumes that node is now properly installed on your machine, the commands wont work if it isnt. it also assumes your project is properly configured as per the instructions and you are at the root of the project.
 
